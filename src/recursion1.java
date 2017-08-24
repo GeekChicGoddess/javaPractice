@@ -126,6 +126,55 @@ public class recursion1 {
 
         return  paranStr + parenBit(str) ;
     }
+    public boolean nestParen(String str) {
+        if (str.length() == 0) return true;
+        if (str.length() == 1) return false;
+        char[] charArray = str.toCharArray();
+        System.out.println(str);
+        System.out.println(charArray[0]);
+        System.out.println(charArray[charArray.length-1]);
+        if((charArray[0] == '(') && (charArray[charArray.length-1] == ')')){
+            System.out.println("running");
+            if (charArray.length == 2) return true;
+            else {
+                charArray = Arrays.copyOfRange(charArray, 1, charArray.length-1);
+                str = String.valueOf(charArray);
+                System.out.println(str);
+                return nestParen(str);
+            }
+        }
+        else {return false;}
+
+    }
+    public int strCount(String str, String sub) {
+        int subLen = sub.length();
+        if (str.length() < subLen) return 0;
+        char[] charArray = str.toCharArray();
+        char[] subChar =  Arrays.copyOfRange(charArray, 0, 1);
+        if (subLen > 1) {
+            subChar = Arrays.copyOfRange(charArray, 0, subLen);
+        }
+        String subStr = String.valueOf(subChar);
+        int count = 0;
+
+        System.out.println(subStr);
+        System.out.println(str);
+        if(subStr.equals(sub)) {
+            count = 1;
+            if (subLen == 1) {
+                charArray = Arrays.copyOfRange(charArray, 1, charArray.length);}
+            else{
+                charArray = Arrays.copyOfRange(charArray, subLen, charArray.length);
+            }
+        }
+        else {
+            charArray = Arrays.copyOfRange(charArray, 1, charArray.length);
+        }
+
+        str = String.valueOf(charArray);
+
+        return count + strCount(str, sub);
+    }
 
 
 
@@ -137,6 +186,8 @@ public class recursion1 {
 
 //        System.out.println(rec.countHi("ihihihi"));
 //        System.out.println(rec.changePi("ipipipi"));
-        System.out.println(rec.parenBit("ipi(sdsd)i"));
+//        System.out.println(rec.parenBit("ipi(sdsd)i"));
+//        System.out.println(rec.nestParen("(())"));
+        System.out.println(rec.strCount("iiiijj", "ii"));
     }
 }
